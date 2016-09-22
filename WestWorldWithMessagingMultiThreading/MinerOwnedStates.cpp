@@ -324,7 +324,6 @@ void Drunk::Execute(Miner* pMiner)
 
 void Drunk::Exit(Miner* pMiner)
 {
-	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "I think...*hic*... I've to go...*hic*...to work !";
 }
 
 
@@ -357,7 +356,7 @@ bool Drunk::OnMessage(Miner* pMiner, const Telegram& msg)
 			cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID())
 				<< " at time: " << Clock->GetCurrentTime();
 			SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-			cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": AHAHAH THIS MAN IS SLEEPIN' ON THE BAR";
+			cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": AHAHAH THIS MAN IS SLEEPIN' ON THE BAR!";
 			Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
 				pMiner->ID(),        //ID of sender
 				ent_Boozer,            //ID of recipient
