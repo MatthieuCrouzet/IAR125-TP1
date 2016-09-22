@@ -221,6 +221,29 @@ public:
 };
 
 
+class Cleanse : public State<Miner>
+{
+private:
+
+	Cleanse() {}
+
+	//copy ctor and assignment should be private
+	Cleanse(const Cleanse&);
+	Cleanse& operator=(const Cleanse&);
+
+public:
+
+	//this is a singleton
+	static Cleanse* Instance();
+
+	virtual void Enter(Miner* miner);
+
+	virtual void Execute(Miner* miner);
+
+	virtual void Exit(Miner* miner);
+
+	virtual bool OnMessage(Miner* agent, const Telegram& msg);
+};
 
 
 #endif

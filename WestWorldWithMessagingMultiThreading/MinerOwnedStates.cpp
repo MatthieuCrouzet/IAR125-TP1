@@ -316,9 +316,9 @@ void Drunk::Execute(Miner* pMiner)
 {
 	pMiner->BuyAndDrinkAWhiskey();
 	SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "*drink another glass* ... I think...hic... I've to go...hic...home Now !";
+	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "*drink another glass* ... I think...hic... I've to go...hic...to work !";
 	if (pMiner->Location() == saloon && pMiner->getNbBeverages()>5) {
-		pMiner->GetFSM()->ChangeState(GoHomeAndSleepTilRested::Instance());
+		pMiner->GetFSM()->ChangeState(Cleanse::Instance());
 	}
 }
 
@@ -411,13 +411,34 @@ bool Angry::OnMessage(Miner* pMiner, const Telegram& msg)
 		cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID())
 			<< " at time: " << Clock->GetCurrentTime();
 		SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "I go !";
 
-		pMiner->GetFSM()->ChangeState(GoHomeAndSleepTilRested::Instance());
+		pMiner->GetFSM()->ChangeState(Cleanse::Instance());
 
 		return true;
 
 	}//end switch
 
 	return false; //send message to global message handler
+}
+
+Cleanse* Cleanse::Instance() {
+	static Cleanse instance;
+	return &instance;
+}
+
+void Cleanse::Enter(Miner* miner) {
+	SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+	cout << "\n" << GetNameOfEntity(miner->ID()) << ": It's time to work !";
+}
+
+void Cleanse::Execute(Miner* miner) {
+	miner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
+}
+
+void Cleanse::Exit(Miner* miner) {
+
+}
+
+bool Cleanse::OnMessage(Miner* agent, const Telegram& msg) {
+	return false;
 }
