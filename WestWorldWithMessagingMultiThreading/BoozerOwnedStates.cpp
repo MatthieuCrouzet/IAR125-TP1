@@ -48,22 +48,22 @@ Violent * Violent::Instance()
 void Calm::Enter(Boozer* pBoozer)
 {
 	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << ": " << "Leaning on the bar quietly";
+	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << " is leaning on the bar quietly";
 }
 void DrunkBoozer::Enter(Boozer* pBoozer)
 {
 	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << ": " << "Sleeping on the bar snoring";
+	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << " is sleeping on the bar, snoring";
 }
 void AngryBoozer::Enter(Boozer* pBoozer)
 {
 	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << ": " << "Standing next to the bar";
+	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << " is standing next to the bar";
 }
 void Violent::Enter(Boozer* pBoozer)
 {
 	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << ": " << "Shouting words";
+	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << " is shouting words";
 }
 
 //EXECUTE
@@ -71,7 +71,7 @@ void Calm::Execute(Boozer* pBoozer)
 {
 	pBoozer->drink();
 	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << ": " << "Drink another glass";
+	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << " drinks another glass";
 	if (pBoozer->isDrunk())
 	{
 		pBoozer->GetFSM()->ChangeState(DrunkBoozer::Instance());
@@ -96,25 +96,25 @@ void AngryBoozer::Execute(Boozer* pBoozer)
 {
 	pBoozer->drink();
 	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << ": " << "Drink another glass and grumble";
+	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << " drinks another glass and grumble";
 }
 void Violent::Execute(Boozer* pBoozer)
 {
 	pBoozer->drink();
 	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << ": " << "Drink another glass and taps his fist on the bar";
+	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << " drinks another glass and taps his fist on the bar";
 }
 
 //EXIT
 void Calm::Exit(Boozer* pBoozer)
 {
 	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << ": " << "Fall tired on the bar";
+	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << " falls tired on the bar";
 }
 void DrunkBoozer::Exit(Boozer* pBoozer)
 {
 	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << ": " << "Wakin' up";
+	cout << "\n" << GetNameOfEntity(pBoozer->ID()) << ": " << "Wakin' up!";
 }
 void AngryBoozer::Exit(Boozer* pBoozer)
 {
@@ -184,7 +184,7 @@ bool AngryBoozer::OnMessage(Boozer* pBoozer, const Telegram& msg)
 		SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
 		cout << "\n" << GetNameOfEntity(pBoozer->ID())
-			<< ": Sorry, it's my fault I'm drunk !";
+			<< ": Sorry, it's my fault, I'm drunk !";
 		Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
 			pBoozer->ID(),        //ID of sender
 			ent_Miner_Bob,            //ID of recipient

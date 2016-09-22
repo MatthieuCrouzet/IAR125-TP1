@@ -309,21 +309,22 @@ Drunk* Drunk::Instance()
 void Drunk::Enter(Miner* pMiner)
 {
 	SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "I think I drunk too much.";
+	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "I reckon' I drank too much.";
 }
 
 void Drunk::Execute(Miner* pMiner)
 {
-	pMiner->BuyAndDrinkAWhiskey();
+	pMiner->DrinkAWhiskey();
 	SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "*drink another glass* ... I think...hic... I've to go...hic...to work !";
-	if (pMiner->Location() == saloon && pMiner->getNbBeverages()>5) {
+	cout << "\n" << GetNameOfEntity(pMiner->ID()) << " drink another glass.";
+	if (pMiner->Location() == saloon && pMiner->getNbBeverages()>4) {
 		pMiner->GetFSM()->ChangeState(Cleanse::Instance());
 	}
 }
 
 void Drunk::Exit(Miner* pMiner)
 {
+	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "I think...*hic*... I've to go...*hic*...to work !";
 }
 
 
@@ -339,7 +340,7 @@ bool Drunk::OnMessage(Miner* pMiner, const Telegram& msg)
 			cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID())
 				<< " at time: " << Clock->GetCurrentTime();
 			SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-			cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": You're so ashamed !";
+			cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": You should be ashamed !";
 			Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
 				pMiner->ID(),        //ID of sender
 				ent_Boozer,            //ID of recipient
@@ -397,6 +398,7 @@ void Angry::Execute(Miner* pMiner)
 
 void Angry::Exit(Miner* pMiner)
 {
+	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "I think...hic... I've to go...*hic*...to work !";
 }
 
 
@@ -428,14 +430,17 @@ Cleanse* Cleanse::Instance() {
 
 void Cleanse::Enter(Miner* miner) {
 	SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
-	cout << "\n" << GetNameOfEntity(miner->ID()) << ": It's time to work !";
+	cout << "\n" << GetNameOfEntity(miner->ID()) << ": Before I.. *hic* go to work, I should drink a looot of water";
 }
 
 void Cleanse::Execute(Miner* miner) {
+	cout << "\n" << GetNameOfEntity(miner->ID()) << " drinks 5 whole bottle of water";
+	miner->DrunkCleanse();
 	miner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
 }
 
 void Cleanse::Exit(Miner* miner) {
+	cout << "\n" << GetNameOfEntity(miner->ID()) << ": My thirst an' mah heavy head is gon'! Let's head back to da mine!";
 
 }
 

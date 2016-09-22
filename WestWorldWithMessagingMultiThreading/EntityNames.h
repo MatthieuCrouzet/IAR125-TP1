@@ -24,7 +24,7 @@ inline std::string GetNameOfEntity(int n)
 
   case ent_Boozer:
 
-	  return "boozer";
+	  return "Boozer";
 
   default:
 

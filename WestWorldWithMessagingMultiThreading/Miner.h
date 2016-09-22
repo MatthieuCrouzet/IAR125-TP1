@@ -107,6 +107,8 @@ public:
 
   bool          Thirsty()const; 
   void          BuyAndDrinkAWhiskey() { m_iThirst = 0; m_iMoneyInBank -= 2; m_nbBeverage++; }
+  void          DrinkAWhiskey() { m_nbBeverage++; }
+  void          DrunkCleanse() { m_nbBeverage = 0; }
   int			getNbBeverages()const;
 
 };
